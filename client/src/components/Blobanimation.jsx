@@ -59,7 +59,7 @@ const BlobAnimation = ({ containerRef }) => {
           var yc = (p1.y + p2.y) / 2;
           ctx.quadraticCurveTo(p1.x, p1.y, xc, yc);
 
-          ctx.fillStyle = '#000000';
+          ctx.fillStyle = '#A020F0';
 
           p1 = p2;
         }
@@ -70,14 +70,14 @@ const BlobAnimation = ({ containerRef }) => {
 
         ctx.fillStyle = this.color;
         ctx.fill();
-        ctx.strokeStyle = '#000000';
+        ctx.strokeStyle = '#A020F0';
         ctx.stroke();
 
         requestAnimationFrame(this.render.bind(this));
       }
 
       get color() {
-        return this._color || '#000000';
+        return this._color || '#A020F0';
       }
 
       set color(value) {

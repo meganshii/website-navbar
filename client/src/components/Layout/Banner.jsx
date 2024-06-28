@@ -14,6 +14,7 @@ import {
   i8,
 } from '../../Assests';
 import BlobAnimation from '../Blobanimation';
+
 const AboutLayOut = () => {
   const [hoveredCategory, setHoveredCategory] = useState('All Products');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -69,12 +70,16 @@ const AboutLayOut = () => {
           )}
           <div className="flex overflow-hidden w-full" ref={containerRef}>
             {filteredCars.slice(currentIndex, currentIndex + 3).map((car, index) => (
-              <div key={car.name} className="group  mx-4  text-center p-2 w-1/3">
-                                 <BlobAnimation containerRef={containerRef} />
-                                 <img
+              <div key={car.name} className="group mx-4 text-center p-2 w-1/3 relative">
+                {index === 0 && (
+                  <div className="absolute inset-0">
+                    <BlobAnimation containerRef={containerRef} />
+                  </div>
+                )}
+                <img
                   src={car.image}
                   alt={car.name}
-                  className="w-golden-w h-golden-h object-cover rounded-lg"
+                  className="w-golden-w h-golden-h object-cover rounded-lg relative"
                 />
                 <h3 className="text-lg font-bold mt-2">{car.name}</h3>
                 <div className="flex justify-center space-x-4 mt-2">
@@ -97,7 +102,7 @@ const AboutLayOut = () => {
             </button>
           )}
         </div>
-        <div className="w-full md:w-1/4  p-6 md:space-y-2 lg:space-y-4 border-l border-gray-300 ml-4">
+        <div className="w-full md:w-1/4 p-6 md:space-y-2 lg:space-y-4 border-l border-gray-300 ml-4">
           {SidebarLinks.map((link) => (
             <div
               key={link.name}
@@ -105,9 +110,10 @@ const AboutLayOut = () => {
                 setHoveredCategory(link.name);
                 setCurrentIndex(0);
               }}
-              className={`flex items-start justify-start space-x-4 text-lg text-gray-800 hover:text-black transition-colors duration-300 cursor-pointer ${hoveredCategory === link.name ? ' font-semibold' : ' font-normal'}`}
+              className={`flex items-start justify-start space-x-4 text-lg text-gray-800 hover:text-black transition-colors duration-300 cursor-pointer ${hoveredCategory === link.name ? 'font-semibold' : 'font-normal'}`}
             >
-              <span>              <link.icon></link.icon>
+              <span>
+                <link.icon />
               </span>
               <span>{link.name}</span>
             </div>
