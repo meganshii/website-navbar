@@ -22,7 +22,7 @@ import missionImage from '../Asset/mission_v1.png';
 import companyImage from '../Asset/company_v1.png';
 import strengthImage from '../Asset/strength_v1.png';
 import pinkCityImage from '../Asset/pinkCity_v1.png';
-import first from './myfirst.png';
+import first from './paperimage.png';
 import second from './bg3.jpg';
 import i1 from '../Asset/NS-015_v1.jpeg';
 import i2 from '../Asset/NS-016_v1.jpeg';

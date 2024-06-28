@@ -70,7 +70,7 @@ const AboutLayOut = () => {
           )}
           <div className="flex overflow-hidden w-full" ref={containerRef}>
             {filteredCars.slice(currentIndex, currentIndex + 3).map((car, index) => (
-              <div key={car.name} className="group mx-4 text-center p-2 w-1/3 relative">
+              <div key={car.name} className="group bg-transparent mx-4 text-center p-2 w-1/3 relative">
                 {index === 0 && (
                   <div className="absolute inset-0">
                     <BlobAnimation containerRef={containerRef} />
@@ -79,7 +79,7 @@ const AboutLayOut = () => {
                 <img
                   src={car.image}
                   alt={car.name}
-                  className="w-golden-w h-golden-h object-cover rounded-lg relative"
+                  className="w-golden-w  h-golden-h object-cover rounded-lg relative"
                 />
                 <h3 className="text-lg font-bold mt-2">{car.name}</h3>
                 <div className="flex justify-center space-x-4 mt-2">
@@ -113,7 +113,7 @@ const AboutLayOut = () => {
               className={`flex items-start justify-start space-x-4 text-lg text-gray-800 hover:text-black transition-colors duration-300 cursor-pointer ${hoveredCategory === link.name ? 'font-semibold' : 'font-normal'}`}
             >
               <span>
-                <link.icon />
+                <link.icon></link.icon>
               </span>
               <span>{link.name}</span>
             </div>
