@@ -142,7 +142,7 @@ const BlobAnimation = ({ containerRef }) => {
       set acceleration(value) {
         if (typeof value === 'number') {
           this._acceleration = value;
-          this.speed += this._acceleration * 2;
+          this.speed += this._acceleration * 0.5;
         }
       }
       get acceleration() {
@@ -152,7 +152,7 @@ const BlobAnimation = ({ containerRef }) => {
       set speed(value) {
         if (typeof value === 'number') {
           this._speed = value;
-          this.radialEffect += this._speed * 5;
+          this.radialEffect += this._speed * 1;
         }
       }
       get speed() {
@@ -185,7 +185,7 @@ const BlobAnimation = ({ containerRef }) => {
         }
       }
       get elasticity() {
-        return this._elasticity || 0.001;
+        return this._elasticity || 0.0005;
       }
       set friction(value) {
         if (typeof value === 'number') {
@@ -193,7 +193,7 @@ const BlobAnimation = ({ containerRef }) => {
         }
       }
       get friction() {
-        return this._friction || 0.0085;
+        return this._friction || 0.002;
       }
     }
 
@@ -227,8 +227,8 @@ const BlobAnimation = ({ containerRef }) => {
 
         if (nearestPoint) {
           let strength = { x: e.clientX - (rect.left + rect.width / 2), y: e.clientY - (rect.top + rect.height / 2) };
-          strength = Math.sqrt(strength.x * strength.x + strength.y * strength.y) * 10;
-          if (strength > 20) strength = 20; // Further reduced sensitivity
+          strength = Math.sqrt(strength.x * strength.x + strength.y * strength.y);
+          if (strength > 5) strength = 5; // Reduced sensitivity
           nearestPoint.acceleration = (strength / 100) * -1; // Negative acceleration to avoid excessive distortion
         }
       }
