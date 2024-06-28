@@ -1,4 +1,3 @@
-// YourComponent.tsx
 import {
     React,
     useState,
@@ -10,7 +9,6 @@ import {
     motion,
     MdOutlineAccountCircle,
 } from "../index";
-import { bglogo } from "../../Assests";
 const ProfilePage = () => {
     return (
         <div className="absolute top-16 right-0 w-64 bg-white text-black p-4 rounded-lg shadow-lg font-montserrat text-16 font-thin z-50">

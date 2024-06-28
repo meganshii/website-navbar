@@ -59,7 +59,7 @@ const BlobAnimation = ({ containerRef }) => {
                     var yc = (p1.y + p2.y) / 2;
                     ctx.quadraticCurveTo(p1.x, p1.y, xc, yc);
 
-                    ctx.fillStyle = '#A020F0';
+                    ctx.fillStyle = '#80008038';
 
                     p1 = p2;
                 }
@@ -70,14 +70,14 @@ const BlobAnimation = ({ containerRef }) => {
 
                 ctx.fillStyle = this.color;
                 ctx.fill();
-                ctx.strokeStyle = '#A020F0';
+                ctx.strokeStyle = '#80008038';
                 ctx.stroke();
 
                 requestAnimationFrame(this.render.bind(this));
             }
 
             get color() {
-                return this._color || '#A020F0';
+                return this._color || '#80008038';
             }
 
             set color(value) {
@@ -85,7 +85,7 @@ const BlobAnimation = ({ containerRef }) => {
             }
 
             get numPoints() {
-                return this._points || 32;
+                return this._points || 32; // Adjust number of points for desired distortion
             }
 
             set numPoints(value) {
@@ -95,7 +95,7 @@ const BlobAnimation = ({ containerRef }) => {
             }
 
             get radius() {
-                return this._radius || 150;
+                return this._radius || 150; // Adjust radius for desired size
             }
 
             set radius(value) {
@@ -132,7 +132,8 @@ const BlobAnimation = ({ containerRef }) => {
                     y: Math.sin(this.azimuth),
                 };
 
-                this.acceleration = -0.3 + Math.random * 0.6;
+                this.radialEffect = 10 * Math.random(); // Add initial distortion
+                this.acceleration = -0.3 + Math.random() * 0.6;
             }
 
             solveWith(leftPoint, rightPoint) {
@@ -228,8 +229,8 @@ const BlobAnimation = ({ containerRef }) => {
                 if (nearestPoint) {
                     let strength = { x: e.clientX - (rect.left + rect.width / 2), y: e.clientY - (rect.top + rect.height / 2) };
                     strength = Math.sqrt(strength.x * strength.x + strength.y * strength.y);
-                    if (strength > 5) strength = 5; // Reduced sensitivity
-                    nearestPoint.acceleration = (strength / 100) * -1; // Negative acceleration to avoid excessive distortion
+                    if (strength > 5) strength = 5;
+                    nearestPoint.acceleration = (strength / 100) * -1;
                 }
             }
         };
@@ -247,7 +248,7 @@ const BlobAnimation = ({ containerRef }) => {
         };
     }, [containerRef]);
 
-    return <canvas ref={canvasRef} className="absolute inset-0 z-0"></canvas>;
+    return <canvas ref={canvasRef} className="absolute opacity-40 inset-0 z-0"></canvas>;
 };
 
 export default BlobAnimation;

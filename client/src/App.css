@@ -9,38 +9,3 @@
 .primary-button{
   @apply bg-red-600 rounded-md p-1 px-6 text-white font-montserrat font-semibold text-16;
 }
-@import url('https://fonts.googleapis.com/css?family=Exo+2');
-
-* {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-}
-
-/* Blob animation styles */
-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-rect {
-  fill: url(#blobGradient);
-}
-
-@keyframes blob {
-  0%,
-  100% {
-    d: path("M 40,80 Q 60,100 80,80 Q 100,60 80,40 Q 60,20 40,40 Q 20,60 40,80 Z");
-  }
-  33% {
-    d: path("M 30,70 Q 50,90 70,70 Q 90,50 70,30 Q 50,10 30,30 Q 10,50 30,70 Z");
-  }
-  66% {
-    d: path("M 50,90 Q 70,110 90,90 Q 110,70 90,50 Q 70,30 50,50 Q 30,70 50,90 Z");
-  }
-}
-
