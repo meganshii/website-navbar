@@ -18,20 +18,20 @@ import myimageJpg from './myimage.jpg';
 import myimageWebp from './myimage.jpg';
 import straw from './straw.jpg';
 import whitedots from './whitedots.svg';
-import missionImage from '../Asset/mission.png';
-import companyImage from '../Asset/company.png';
-import strengthImage from '../Asset/strength.png';
-import pinkCityImage from '../Asset/pinkCity.png';
-import first from '../Asset/first.png';
+import missionImage from '../Asset/mission_v1.png';
+import companyImage from '../Asset/company_v1.png';
+import strengthImage from '../Asset/strength_v1.png';
+import pinkCityImage from '../Asset/pinkCity_v1.png';
+import first from './first.webp';
 import second from './bg3.jpg';
-import i1 from '../Asset/i1.jpeg';
-import i2 from '../Asset/i2.jpeg';
-import i3 from '../Asset/i3.jpeg';
-import i4 from '../Asset/i4.jpeg';
-import i5 from '../Asset/i5.jpeg';
-import i6 from '../Asset/i6.jpeg';
-import i7 from '../Asset/i7.jpeg';
-import i8 from '../Asset/i8.jpeg';
+import i1 from '../Asset/NS-015_v1.jpeg';
+import i2 from '../Asset/NS-016_v1.jpeg';
+import i3 from '../Asset/NS-017_v1.jpeg';
+import i4 from '../Asset/NS-018_v1.jpeg';
+import i5 from '../Asset/NS-019_v1.jpeg';
+import i6 from '../Asset/NS-020_v1.jpeg';
+import i7 from '../Asset/NS-021_v1.jpeg';
+import i8 from '../Asset/NS-022_v1.jpeg';
 export {
   automationOptions,
   bg1,

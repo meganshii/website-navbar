@@ -45,10 +45,10 @@ const Layout = () => {
     }, [currentIndex]);
 
     return (
-        <div className="flex flex-col top-0 border-b-2 md:flex-row p-12 h-full md:h-[50vh] items-center justify-center">
-            <div className="grid max-w-7xl grid-cols-2 md:grid-cols-4 gap-2 flex-grow">
+        <div className="flex flex-col top-0 border-b-2 md:flex-row p-4 sm:p-6 md:p-8 lg:p-4 h-full md:h-full items-center justify-center">
+            <div className="grid max-w-7xl grid-cols-2 gap-4 md:grid-cols-4 flex-shrink">
                 {titlesWithImages.map((item, index) => (
-                    <div key={index} className="p-2 flex flex-col items-center">
+                    <div key={index} className="flex p-2 flex-col items-center">
                         <img
                             src={item.image}
                             alt={item.title}
@@ -58,37 +58,36 @@ const Layout = () => {
                     </div>
                 ))}
             </div>
-            <div className="w-full md:w-1/4  h-full border-l border-gray-300">
-                <div className="w-full md:mt-0 ml-2 md:ml-4 flex flex-col justify-between">
-                    <div className="relative h-full overflow-hidden">
-                        <div ref={carouselRef} className="h-60">
-                            {items.slice(currentIndex, currentIndex + 2).map((item, index) => (
-                                <div key={index} className={`${item.color} flex items-center p-3 rounded-3xl mb-4`}>
-                                    <div className={`h-12 w-12 mr-3 flex justify-center items-center text-2xl ${item.color}`}>
-                                        {<item.icon></item.icon>}
-                                    </div>
-                                    <div className={`${item.color}`}>
-                                        <h3 className={`${item.color} font-montserrat font-semibold text-16 mb-2`}>{item.title}</h3>
-                                        <p className={`${item.color} font-montserrat text-14 line-clamp-3`}>{item.description}</p>
-                                    </div>
+            <div className="ml-2 w-2 h-72 md:ml-4 lg:ml-6 border-l border-gray-300"></div>
+            <div className="ml-2 md:ml-4 lg:ml-6 w-full md:w-1/4 min-h-full  flex flex-col justify-between">
+                <div className="">
+                    <div ref={carouselRef}>
+                        {items.slice(currentIndex, currentIndex + 2).map((item, index) => (
+                            <div key={index} className={`${item.color} w-full flex items-center rounded-3xl mb-4`}>
+                                <div className={`h-8 w-w-12 p-2 flex justify-center items-center text-2xl ${item.color}`}>
+                                    {<item.icon></item.icon>}
                                 </div>
-                            ))}
-                        </div>
+                                <div className={`${item.color}`}>
+                                    <h3 className={`${item.color} font-montserrat font-semibold text-16 mb-2`}>{item.title}</h3>
+                                    <p className={`${item.color} font-montserrat text-14 line-clamp-3`}>{item.description}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                    <div className="flex w-full justify-center">
-                        {currentIndex > 0 && (
-                            <button onClick={scrollUp} className="absolute text-2xl top-0 p-2 rounded-full">
-                                <IoIosArrowUp />
-                            </button>
-                        )}
-                    </div>
-                    <div className="bottom-4 flex w-full justify-center text-3xl">
-                        {currentIndex < items.length - 2 && (
-                            <button onClick={scrollDown} className="absolute bottom-0 bg-transparent flex justify-center items-center rounded-full">
-                                <IoIosArrowDown />
-                            </button>
-                        )}
-                    </div>
+                </div>
+                <div className="flex w-full justify-center">
+                    {currentIndex > 0 && (
+                        <button onClick={scrollUp} className="absolute text-2xl top-0 p-2 rounded-full">
+                            <IoIosArrowUp />
+                        </button>
+                    )}
+                </div>
+                <div className="bottom-4 flex w-full justify-center text-3xl">
+                    {currentIndex < items.length - 2 && (
+                        <button onClick={scrollDown} className="absolute bg-transparent flex justify-center items-center rounded-full">
+                            <IoIosArrowDown />
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

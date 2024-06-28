@@ -3,6 +3,7 @@ import {
   FaProjectDiagram,
   FaLightbulb,
   FaRecycle,
+  AiFillProduct,
   AiOutlineCar,
   AiOutlineShopping,
   AiOutlineCompass,
@@ -16,7 +17,6 @@ import {
   strengthImage,
   pinkCityImage,
 } from "../Assests";
-// items
 export const items = [
   {
     title: "Sustainability",
@@ -56,7 +56,7 @@ export const titlesWithImages = [
 // links for navbar
 export const links = [
   {
-    name: "About Us",
+    name: "AboutUs",
     comp: "AboutUs",
     submenu: false,
     sublinks: [],
@@ -104,25 +104,38 @@ export const links = [
 ];
 // items for banners.jsx
 export const cars = [
-  { name: "i1", image: "i1", category: "Paper Cup Machine" },
-  { name: "i2", image: "i2", category: "Paper Cup Machine" },
-  { name: "i3", image: "i3", category: "Paper Cup Machine" },
-  { name: "i4", image: "i4", category: "Paper Cup Machine" },
-  { name: "i5", image: "i5", category: "Paper Cup Machine" },
-  { name: "i6", image: "i6", category: "Paper Cup Machine" },
-  { name: "i7", image: "i7", category: "Paper Plate Machine" },
-  { name: "i8", image: "i8", category: "Paper Plate Machine" },
-  { name: "a", image: "second", category: "Paper Bowl Machine" },
-  { name: "b", image: "second", category: "Paper Bowl Machine" },
-  { name: "c", image: "second", category: "Paper Bowl Machine" },
-  { name: "d", image: "second", category: "Paper Bowl Machine" },
-  { name: "Cybertruck", image: "first", category: "Paper Plate Machine" },
-  { name: "Help Me Choose", image: "second", category: "Paper Lid Machine" },
-  { name: "a", image: "second", category: "Paper Bag Machine" },
-  { name: "b", image: "second", category: "Paper Straw Machine" },
+  { name: "NS-015", image: "first", category: "Paper Cup Machine,All Products" },
+  { name: "NS-016", image: "first", category: "Paper Cup Machine,All Products" },
+  { name: "NS-017", image: "first", category: "Paper Cup Machine,All Products" },
+  { name: "NS-018", image: "first", category: "Paper Cup Machine,All Products" },
+  { name: "NS-019", image: "first", category: "Paper Cup Machine,All Products" },
+  { name: "NS-020", image: "first", category: "Paper Cup Machine,All Products" },
+  { name: "NS-021", image: "first", category: "Paper Plate Machine,All Products" },
+  { name: "NS-022", image: "first", category: "Paper Plate Machine,All Products" },
+  { name: "a", image: "second", category: "Paper Bowl Machine,All Products" },
+  { name: "b", image: "second", category: "Paper Bowl Machine,All Products" },
+  { name: "c", image: "second", category: "Paper Bowl Machine,All Products" },
+  { name: "d", image: "second", category: "Paper Bowl Machine,All Products" },
+  {
+    name: "Cybertruck",
+    image: "first",
+    category: "Paper Plate Machine,All Products",
+  },
+  {
+    name: "Help Me Choose",
+    image: "second",
+    category: "Paper Lid Machine,All Products",
+  },
+  { name: "a", image: "second", category: "Paper Bag Machine,All Products" },
+  { name: "b", image: "second", category: "Paper Straw Machine,All Products" },
 ];
 
 export const SidebarLinks = [
+  {
+    name: "All Products",
+    link: "/all",
+    icon: AiFillProduct,
+  },
   {
     name: "Paper Cup Machine",
     link: "/Paper Cup Machine",

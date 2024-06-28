@@ -11,8 +11,8 @@ export default {
         14: "14px",
       },
       spacing: {
-        "golden-w": "300px", // Base width
-        "golden-h": `${300 / 1.618}px`, // Calculated height based on the golden ratio
+        "golden-h": "230px", // Base width
+        "golden-w": `${460 / 1.618}px`, // Calculated height based on the golden ratio
       },
       screens: {
         "1000px": "1050px",

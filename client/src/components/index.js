@@ -5,8 +5,11 @@ import { ImSearch } from "react-icons/im";
 import { Link } from "react-router-dom";
 import NavLinks from "./Navbar/NavLinks";
 import { motion } from "framer-motion";
-// import ContactForm from "../Contact/ContactForm";
-import { MdOutlineAccountCircle } from "react-icons/md";
+import {
+  MdOutlineAccountCircle,
+  MdKeyboardArrowLeft,
+  MdKeyboardArrowRight,
+} from "react-icons/md";
 import {
   FaLeaf,
   FaProjectDiagram,
@@ -20,6 +23,7 @@ import {
   IoMdArrowBack,
 } from "react-icons/io";
 import {
+  AiFillProduct,
   AiOutlineCar,
   AiOutlineShopping,
   AiOutlineCompass,
@@ -40,6 +44,7 @@ export {
   FaRecycle,
   IoIosArrowDown,
   IoIosArrowUp,
+  AiFillProduct,
   AiOutlineCar,
   AiOutlineShopping,
   AiOutlineCompass,
@@ -51,6 +56,8 @@ export {
   Link,
   NavLinks,
   motion,
-//   ContactForm,
+  //   ContactForm,
   MdOutlineAccountCircle,
+  MdKeyboardArrowRight,
+  MdKeyboardArrowLeft,
 };

@@ -132,7 +132,7 @@ const Navbar = () => {
             className={`fixed top-2 left-2 right-2 z-50 mx-auto max-w-screen-2xl  backdrop-blur-[4px] ${hoveredItem ? "rounded-t-lg bg-white" : "rounded-lg"
                 }`}
         >
-            <div className="flex items-center gap-4 justify-center h-14 px-4 md:px-4 " >
+            <div className="flex items-center gap-4 justify-center h-14 px-4 md:px-4 lg:px-6 " >
                 <span
                     className="text-2xl md:text-3xl cursor-pointer md:hidden"
                     onClick={toggleMenu}
