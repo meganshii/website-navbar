@@ -49,7 +49,7 @@ const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
                     onMouseEnter={() => handleMouseEnter(link.name)}
                     className="text-left md:cursor-pointer group relative"
                 >
-                    <div  className="hidden md:flex">
+                    <div className="hidden md:flex">
                         <h6
                             className={`z-30 flex  justify-center items-center md:pr-1 pr-2`}
                             onMouseEnter={() => handleMouseEnternew(link.name)}
@@ -71,8 +71,7 @@ const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
 
                         {hoveredItem === link.name && (
                             <div
-                            ref={animateref}
-
+                                ref={animateref}
                                 className={`fixed left-0 right-0 mx-auto shadow-lg max-w-screen-2xl rounded-b-xl h-auto z-10 top-14 flex justify-center items-center`}
                                 onMouseLeave={handleMouseLeave}
                             >

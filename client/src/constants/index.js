@@ -11,7 +11,7 @@ import {
   paperlid,
   paperstraw,
   allproduct,
-  paperbag1
+  paperbag1,
 } from "../assets";
 import {
   missionImage,
@@ -211,13 +211,13 @@ export const SidebarLinks = [
     link: "/all",
     icon: allproduct,
   },
- 
+
   {
     name: "Paper Cup Machine",
     link: "/Paper Cup Machine",
     icon: papercup,
   },
-  
+
   {
     name: "Paper Plate Machine",
     link: "/demo-drive",
