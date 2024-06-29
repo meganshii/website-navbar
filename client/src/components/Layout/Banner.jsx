@@ -18,6 +18,7 @@ import BlobAnimation from '../Blobanimation';
 const AboutLayOut = () => {
   const [hoveredCategory, setHoveredCategory] = useState('All Products');
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeCategory, setActiveCategory] = useState(null); // For tracking the active category based on the carousel slide
   const containerRef = useRef(null);
 
   const images = {
@@ -44,20 +45,23 @@ const AboutLayOut = () => {
     setCurrentIndex((prevIndex) =>
       (prevIndex + 1) % filteredCars.length
     );
+    setActiveCategory(filteredCars[(currentIndex + 1) % filteredCars.length].category.split(',')[0]);
   };
 
   const handlePrev = () => {
     setCurrentIndex((prevIndex) =>
       (prevIndex - 1 + filteredCars.length) % filteredCars.length
     );
+    setActiveCategory(filteredCars[(currentIndex - 1 + filteredCars.length) % filteredCars.length].category.split(',')[0]);
   };
 
   useEffect(() => {
     setCurrentIndex(0);
+    setActiveCategory(null); // Reset the active category when the category changes
   }, [hoveredCategory]);
 
   return (
-    <div className="w-full md:h-[63vh] flex flex-col justify-center items-center font-medium">
+    <div className="w-full md:h-[63vh] border-b-2 rounded-b-xl flex flex-col justify-center items-center font-medium">
       <div className="w-full flex flex-col md:flex-row rounded-lg overflow-hidden">
         <div className="flex h-full justify-center items-center w-full md:w-3/4 relative px-16">
           {filteredCars.length > 3 && (
@@ -71,22 +75,21 @@ const AboutLayOut = () => {
           <div className="flex overflow-hidden w-full" ref={containerRef}>
             {filteredCars.slice(currentIndex, currentIndex + 3).map((car, index) => (
               <div key={car.name} className="group mx-4 bg-transparent text-center p-2 w-1/3 relative">
-                {index === 0 && (
-                  <div className="absolute inset-0">
-                    <BlobAnimation containerRef={containerRef} />
+                {index === 1 && (
+                  <div className="absolute inset-0 z-0">
+                    <BlobAnimation />
                   </div>
                 )}
                 <img
                   src={car.image}
                   alt={car.name}
-                  className="w-golden-w bg-transparent
-                    h-golden-h object-cover rounded-lg relative"
+                  className="w-golden-w bg-transparent h-golden-h object-cover rounded-lg relative z-10"
                 />
-                <h3 className="text-lg bg-transparent font-bold mt-2">{car.name}</h3>
+                <h3 className="text-lg text-black font-bold mt-2 relative z-20">{car.name}</h3>
                 <div className="flex justify-center space-x-4 mt-2">
                   <a
                     href={`${car.link}/learn`}
-                    className="primary-button relative"
+                    className="primary-button relative z-20"
                   >
                     Book Now
                   </a>
@@ -111,24 +114,30 @@ const AboutLayOut = () => {
                 setHoveredCategory(link.name);
                 setCurrentIndex(0);
               }}
-              className={`flex items-start justify-start space-x-4 text-lg text-gray-800 hover:text-black transition-colors duration-300 cursor-pointer ${hoveredCategory === link.name ? 'font-semibold' : 'font-normal'}`}
+              className={`flex items-center space-x-4 text-lg text-gray-800 hover:text-black transition-colors duration-300 cursor-pointer ${hoveredCategory === 'All Products' && activeCategory === link.name ? 'font-semibold text-black' : 'font-normal'}`}
             >
-              <span>
-                <link.icon></link.icon>
-              </span>
-              <span>{link.name}</span>
+              <div
+                className={`flex items-center h-4 bg-fixed object-contain bg-no-repeat justify-center cursor-pointer w-4 ${hoveredCategory === 'All Products' && activeCategory === link.name ? 'h-6 w-6' : 'text-black'}`}
+              >
+                <img className='rounded-full' src={link.icon} alt="machine icon" />
+              </div>
+              <span className={`transition duration-300 ${hoveredCategory === link.name ? 'font-semibold text-lg' : ''}`}>{link.name}</span>
             </div>
           ))}
         </div>
       </div>
       <div className="flex justify-center w-full">
-        <div className="flex justify-center space-x-2" style={{ width: '75%', marginLeft: '-15rem' }}>
-          {filteredCars.map((_, index) => (
+        <div className="flex justify-center items-center space-x-2" style={{ width: '75%', marginLeft: '-15rem' }}>
+          {filteredCars.map((machine, index) => (
             <div
               key={index}
-              className={`w-2 h-2 rounded-full mx-1 cursor-pointer ${currentIndex === index ? 'bg-black' : 'bg-gray-400'}`}
-              onClick={() => setCurrentIndex(index)}
+              className={`flex items-center h-4 bg-fixed object-contain bg-no-repeat w-4 justify-center cursor-pointer ${currentIndex === index ? 'h-8 w-8' : 'text-black'}`}
+              onClick={() => {
+                setCurrentIndex(index);
+                setActiveCategory(filteredCars[index].category.split(',')[0]);
+              }}
             >
+              <img className='rounded-full bg-transparent' src={machine.icon} alt="machine icon" />
             </div>
           ))}
         </div>

@@ -31,6 +31,7 @@ import {
   AiOutlineRadarChart,
   AiOutlineThunderbolt,
 } from "react-icons/ai";
+import ContactForm from "./Contact/Contact";
 
 export {
   React,
@@ -56,7 +57,7 @@ export {
   Link,
   NavLinks,
   motion,
-  //   ContactForm,
+  ContactForm,
   MdOutlineAccountCircle,
   MdKeyboardArrowRight,
   MdKeyboardArrowLeft,

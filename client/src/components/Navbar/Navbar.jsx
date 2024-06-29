@@ -8,6 +8,7 @@ import {
     NavLinks,
     motion,
     MdOutlineAccountCircle,
+    ContactForm
 } from "../index";
 const ProfilePage = () => {
     return (

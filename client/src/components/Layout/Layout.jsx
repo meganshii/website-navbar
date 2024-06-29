@@ -45,14 +45,14 @@ const Layout = () => {
     }, [currentIndex]);
 
     return (
-        <div className="flex flex-col top-0 border-b-2 md:flex-row p-4 sm:p-6 md:p-8 lg:p-4 h-full md:h-full items-center justify-center">
+        <div className="flex flex-col top-0 border-b-2  rounded-b-xl md:flex-row p-4 sm:p-6 md:p-8 lg:p-4 h-full md:h-full items-center justify-center">
             <div className="grid max-w-7xl grid-cols-2 gap-4 md:grid-cols-4 flex-shrink">
                 {titlesWithImages.map((item, index) => (
                     <div key={index} className="flex p-2 flex-col items-center">
                         <img
                             src={item.image}
                             alt={item.title}
-                            className="w-golden-w h-golden-h rounded-3xl cursor-pointer"
+                            className="w-golden-w h-golden-h rounded-2xl cursor-pointer"
                         />
                         <p className="mt-2 text-center text-sm font-semibold">{item.title}</p>
                     </div>

@@ -3,14 +3,16 @@ import {
   FaProjectDiagram,
   FaLightbulb,
   FaRecycle,
-  AiFillProduct,
-  AiOutlineCar,
-  AiOutlineShopping,
-  AiOutlineCompass,
-  AiOutlineDollarCircle,
-  AiOutlineRadarChart,
-  AiOutlineThunderbolt,
 } from "../components";
+import {
+  papercup,
+  paperplate2,
+  paperbowl,
+  paperlid,
+  paperstraw,
+  allproduct,
+  paperbag1
+} from "../assets";
 import {
   missionImage,
   companyImage,
@@ -104,66 +106,141 @@ export const links = [
 ];
 // items for banners.jsx
 export const cars = [
-  { name: "NS-015", image: "first", category: "Paper Cup Machine,All Products" },
-  { name: "NS-016", image: "first", category: "Paper Cup Machine,All Products" },
-  { name: "NS-017", image: "first", category: "Paper Cup Machine,All Products" },
-  { name: "NS-018", image: "first", category: "Paper Cup Machine,All Products" },
-  { name: "NS-019", image: "first", category: "Paper Cup Machine,All Products" },
-  { name: "NS-020", image: "first", category: "Paper Cup Machine,All Products" },
-  { name: "NS-021", image: "first", category: "Paper Plate Machine,All Products" },
-  { name: "NS-022", image: "first", category: "Paper Plate Machine,All Products" },
-  { name: "a", image: "second", category: "Paper Bowl Machine,All Products" },
-  { name: "b", image: "second", category: "Paper Bowl Machine,All Products" },
-  { name: "c", image: "second", category: "Paper Bowl Machine,All Products" },
-  { name: "d", image: "second", category: "Paper Bowl Machine,All Products" },
+  {
+    name: "NS-015",
+    image: "first",
+    category: "Paper Cup Machine,All Products",
+    icon: papercup,
+  },
+  {
+    name: "NS-016",
+    image: "first",
+    category: "Paper Cup Machine,All Products",
+    icon: papercup,
+  },
+  {
+    name: "NS-017",
+    image: "first",
+    category: "Paper Cup Machine,All Products",
+    icon: papercup,
+  },
+  {
+    name: "NS-018",
+    image: "first",
+    category: "Paper Cup Machine,All Products",
+    icon: papercup,
+  },
+  {
+    name: "NS-019",
+    image: "first",
+    category: "Paper Cup Machine,All Products",
+    icon: papercup,
+  },
+  {
+    name: "NS-020",
+    image: "first",
+    category: "Paper Cup Machine,All Products",
+    icon: papercup,
+  },
+  {
+    name: "NS-021",
+    image: "first",
+    category: "Paper Plate Machine,All Products",
+    icon: paperplate2,
+  },
+  {
+    name: "NS-022",
+    image: "first",
+    category: "Paper Plate Machine,All Products",
+    icon: paperplate2,
+  },
   {
     name: "Cybertruck",
     image: "first",
     category: "Paper Plate Machine,All Products",
+    icon: paperplate2,
   },
+  {
+    name: "a",
+    image: "second",
+    category: "Paper Bowl Machine,All Products",
+    icon: paperbowl,
+  },
+  {
+    name: "b",
+    image: "second",
+    category: "Paper Bowl Machine,All Products",
+    icon: paperbowl,
+  },
+  {
+    name: "c",
+    image: "second",
+    category: "Paper Bowl Machine,All Products",
+    icon: paperbowl,
+  },
+  {
+    name: "d",
+    image: "second",
+    category: "Paper Bowl Machine,All Products",
+    icon: paperbowl,
+  },
+
   {
     name: "Help Me Choose",
     image: "second",
     category: "Paper Lid Machine,All Products",
+    icon: paperlid,
   },
-  { name: "a", image: "second", category: "Paper Bag Machine,All Products" },
-  { name: "b", image: "second", category: "Paper Straw Machine,All Products" },
+  {
+    name: "a",
+    image: "second",
+    category: "Paper Bag Machine,All Products",
+    icon: paperbag1,
+  },
+  {
+    name: "b",
+    image: "second",
+    category: "Paper Straw Machine,All Products",
+    icon: paperstraw,
+  },
 ];
 
 export const SidebarLinks = [
   {
     name: "All Products",
     link: "/all",
-    icon: AiFillProduct,
+    icon: allproduct,
   },
+ 
   {
     name: "Paper Cup Machine",
     link: "/Paper Cup Machine",
-    icon: AiOutlineCar,
+    icon: papercup,
+  },
+  
+  {
+    name: "Paper Plate Machine",
+    link: "/demo-drive",
+    icon: paperplate2,
   },
   {
     name: "Paper Bowl Machine",
     link: "/used-cars",
-    icon: AiOutlineShopping,
-  },
-  {
-    name: "Paper Plate Machine",
-    link: "/demo-drive",
-    icon: AiOutlineCompass,
+    icon: paperbowl,
   },
   {
     name: "Paper Lid Machine",
     link: "/Paper Lid Machine",
-    icon: AiOutlineDollarCircle,
+    icon: paperlid,
   },
   {
     name: "Paper Bag Machine",
     link: "/Paper Bag Machine",
-    icon: AiOutlineRadarChart,
+    icon: paperbag1,
   },
   {
     name: "Paper Straw Machine",
     link: "/help-me-charge",
-    icon: AiOutlineThunderbolt,
+    icon: paperstraw,
   },
 ];

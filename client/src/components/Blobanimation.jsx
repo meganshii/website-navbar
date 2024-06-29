@@ -1,254 +1,44 @@
 import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
 
-const BlobAnimation = ({ containerRef }) => {
-    const canvasRef = useRef(null);
+
+const Blobanimation = () => {
+    const blobRef = useRef(null);
 
     useEffect(() => {
-        if (!containerRef || !containerRef.current) {
-            console.error("containerRef is not defined or does not have a current property.");
-            return;
-        }
+        const blob = blobRef.current;
 
-        let canvas = canvasRef.current;
-        if (!canvas) {
-            console.error("canvasRef is not defined or does not have a current property.");
-            return;
-        }
+        const morphs = [
+            "M38.4,-63.6C52.2,-58.5,67.5,-53.1,76.9,-42.5C86.3,-31.9,89.8,-15.9,87.3,-1.5C84.7,13,76,25.9,66.2,35.8C56.3,45.6,45.2,52.4,34,54.4C22.8,56.4,11.4,53.7,-1.2,55.7C-13.7,57.8,-27.5,64.5,-40.1,63.3C-52.7,62.1,-64.3,53,-69.9,41.1C-75.5,29.2,-75.1,14.6,-74.2,0.5C-73.2,-13.5,-71.7,-27,-65.8,-38.3C-59.9,-49.7,-49.5,-58.8,-37.8,-65.1C-26.1,-71.4,-13.1,-74.9,-0.4,-74.3C12.3,-73.6,24.6,-68.7,38.4,-63.6Z",
+        "M37.8,-65C51.8,-57.4,67.9,-53,75.2,-42.7C82.5,-32.3,81,-16.2,80.2,-0.5C79.3,15.2,79.1,30.4,71.3,39.8C63.5,49.2,48.1,52.9,34.9,60.9C21.8,69,10.9,81.4,-2.2,85.2C-15.3,89.1,-30.6,84.3,-43.8,76.3C-57,68.3,-67.9,56.9,-75.1,43.7C-82.3,30.4,-85.6,15.2,-83.1,1.4C-80.6,-12.3,-72.3,-24.6,-64.2,-36.2C-56.1,-47.9,-48.2,-58.9,-37.5,-68.3C-26.9,-77.8,-13.4,-85.8,-0.8,-84.5C11.9,-83.1,23.8,-72.5,37.8,-65Z",];
 
-        let ctx = canvas.getContext('2d');
-        let blob;
-
-        class Blob {
-            constructor() {
-                this.points = [];
-                this.init();
-                this.render();
-            }
-
-            init() {
-                for (let i = 0; i < this.numPoints; i++) {
-                    let point = new Point(this.divisional * (i + 1), this);
-                    this.points.push(point);
-                }
-            }
-
-            render() {
-                if (!canvas || !ctx) return;
-
-                let pointsArray = this.points;
-                let points = this.numPoints;
-                let center = this.center;
-
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                pointsArray[0].solveWith(pointsArray[points - 1], pointsArray[1]);
-
-                let p0 = pointsArray[points - 1].position;
-                let p1 = pointsArray[0].position;
-                let _p2 = p1;
-
-                ctx.beginPath();
-                ctx.moveTo(center.x, center.y);
-                ctx.moveTo((p0.x + p1.x) / 2, (p0.y + p1.y) / 2);
-
-                for (let i = 1; i < points; i++) {
-                    pointsArray[i].solveWith(pointsArray[i - 1], pointsArray[i + 1] || pointsArray[0]);
-
-                    let p2 = pointsArray[i].position;
-                    var xc = (p1.x + p2.x) / 2;
-                    var yc = (p1.y + p2.y) / 2;
-                    ctx.quadraticCurveTo(p1.x, p1.y, xc, yc);
-
-                    ctx.fillStyle = '#80008038';
-
-                    p1 = p2;
-                }
-
-                var xc = (p1.x + _p2.x) / 2;
-                var yc = (p1.y + _p2.y) / 2;
-                ctx.quadraticCurveTo(p1.x, p1.y, xc, yc);
-
-                ctx.fillStyle = this.color;
-                ctx.fill();
-                ctx.strokeStyle = '#80008038';
-                ctx.stroke();
-
-                requestAnimationFrame(this.render.bind(this));
-            }
-
-            get color() {
-                return this._color || '#80008038';
-            }
-
-            set color(value) {
-                this._color = value;
-            }
-
-            get numPoints() {
-                return this._points || 32; // Adjust number of points for desired distortion
-            }
-
-            set numPoints(value) {
-                if (value > 2) {
-                    this._points = value;
-                }
-            }
-
-            get radius() {
-                return this._radius || 150; // Adjust radius for desired size
-            }
-
-            set radius(value) {
-                if (value > 0) {
-                    this._radius = value;
-                }
-            }
-
-            get position() {
-                return this._position || { x: 0.5, y: 0.5 };
-            }
-
-            set position(value) {
-                if (typeof value === 'object' && value.x && value.y) {
-                    this._position = value;
-                }
-            }
-
-            get divisional() {
-                return (Math.PI * 2) / this.numPoints;
-            }
-
-            get center() {
-                return { x: canvas.width * this.position.x, y: canvas.height * this.position.y };
-            }
-        }
-
-        class Point {
-            constructor(azimuth, parent) {
-                this.parent = parent;
-                this.azimuth = Math.PI - azimuth;
-                this._components = {
-                    x: Math.cos(this.azimuth),
-                    y: Math.sin(this.azimuth),
-                };
-
-                this.radialEffect = 10 * Math.random(); // Add initial distortion
-                this.acceleration = -0.3 + Math.random() * 0.6;
-            }
-
-            solveWith(leftPoint, rightPoint) {
-                this.acceleration = (-0.1 * this.radialEffect + (leftPoint.radialEffect - this.radialEffect) + (rightPoint.radialEffect - this.radialEffect)) * this.elasticity - this.speed * this.friction;
-            }
-
-            set acceleration(value) {
-                if (typeof value === 'number') {
-                    this._acceleration = value;
-                    this.speed += this._acceleration * 0.5;
-                }
-            }
-            get acceleration() {
-                return this._acceleration || 0;
-            }
-
-            set speed(value) {
-                if (typeof value === 'number') {
-                    this._speed = value;
-                    this.radialEffect += this._speed * 1;
-                }
-            }
-            get speed() {
-                return this._speed || 0;
-            }
-
-            set radialEffect(value) {
-                if (typeof value === 'number') {
-                    this._radialEffect = value;
-                }
-            }
-            get radialEffect() {
-                return this._radialEffect || 0;
-            }
-
-            get position() {
-                return {
-                    x: this.parent.center.x + this.components.x * (this.parent.radius + this.radialEffect),
-                    y: this.parent.center.y + this.components.y * (this.parent.radius + this.radialEffect),
-                };
-            }
-
-            get components() {
-                return this._components;
-            }
-
-            set elasticity(value) {
-                if (typeof value === 'number') {
-                    this._elasticity = value;
-                }
-            }
-            get elasticity() {
-                return this._elasticity || 0.0005;
-            }
-            set friction(value) {
-                if (typeof value === 'number') {
-                    this._friction = value;
-                }
-            }
-            get friction() {
-                return this._friction || 0.002;
-            }
-        }
-
-        const resize = () => {
-            canvas.width = containerRef.current.clientWidth;
-            canvas.height = containerRef.current.clientHeight;
-        };
-
-        const mouseMove = (e) => {
-            let rect = containerRef.current.getBoundingClientRect();
-            let pos = blob.center;
-            let diff = { x: e.clientX - (rect.left + rect.width / 2), y: e.clientY - (rect.top + rect.height / 2) };
-            let dist = Math.sqrt(diff.x * diff.x + diff.y * diff.y);
-            let angle = null;
-
-            if (dist < blob.radius) {
-                let vector = { x: e.clientX - (rect.left + rect.width / 2), y: e.clientY - (rect.top + rect.height / 2) };
-                angle = Math.atan2(vector.y, vector.x);
-            }
-
-            if (typeof angle === 'number') {
-                let nearestPoint = null;
-                let distanceFromPoint = 100;
-
-                blob.points.forEach((point) => {
-                    if (Math.abs(angle - point.azimuth) < distanceFromPoint) {
-                        nearestPoint = point;
-                        distanceFromPoint = Math.abs(angle - point.azimuth);
-                    }
-                });
-
-                if (nearestPoint) {
-                    let strength = { x: e.clientX - (rect.left + rect.width / 2), y: e.clientY - (rect.top + rect.height / 2) };
-                    strength = Math.sqrt(strength.x * strength.x + strength.y * strength.y);
-                    if (strength > 5) strength = 5;
-                    nearestPoint.acceleration = (strength / 100) * -1;
-                }
-            }
-        };
-
-        resize();
-
-        blob = new Blob();
-
-        window.addEventListener('resize', resize);
-        window.addEventListener('mousemove', mouseMove);
+        const timeline = gsap.timeline({ repeat: -1, yoyo: true });
+        morphs.forEach((morph, index) => {
+            timeline.to(blob, {
+                duration: 3,
+                ease: "power1.inOut",
+                attr: { d: morph },
+                delay: index * 0.2,
+            });
+        });
 
         return () => {
-            window.removeEventListener('resize', resize);
-            window.removeEventListener('mousemove', mouseMove);
+            timeline.kill();
         };
-    }, [containerRef]);
+    }, []);
 
-    return <canvas ref={canvasRef} className="absolute opacity-40 inset-0 z-0"></canvas>;
+    return (
+        <div>
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    ref={blobRef}
+                    fill="#E8DAFF"
+                    d="M42.1,-75.6C53.1,-66.7,59.2,-52.2,67.3,-38.7C75.5,-25.2,85.5,-12.6,85,-0.3C84.4,12,73.3,23.9,63.5,34.6C53.7,45.2,45.3,54.6,35,61.2C24.6,67.8,12.3,71.8,-0.2,72.1C-12.7,72.4,-25.3,69.1,-38,63.8C-50.7,58.5,-63.5,51.3,-66.6,40.3C-69.8,29.3,-63.4,14.7,-64.2,-0.4C-65,-15.6,-72.9,-31.1,-69.4,-41.5C-65.9,-51.9,-50.9,-57,-37.4,-64.5C-24,-72,-12,-81.7,1.8,-84.8C15.6,-88,31.2,-84.6,42.1,-75.6Z"
+                    transform="translate(100 100)"
+                />
+            </svg>
+        </div>
+    );
 };
 
-export default BlobAnimation;
+export default Blobanimation;
