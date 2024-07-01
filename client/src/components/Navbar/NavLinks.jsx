@@ -3,47 +3,88 @@ import { Link } from "react-router-dom";
 import Banners from "../Layout/Banner";
 import { links } from "../../constants/index";
 import Services from "../Layout/Service";
-import Industries from "../Layout/Industries";
 import Layout from "../Layout/Layout";
 import gsap from "gsap";
-const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
-    const [heading, setHeading] = useState("");
-    const [isVisible, setIsVisible] = useState(false);
+
+const NavLinks = ({ hoveredItem, setHoveredItem, open, heading, setHeading, isVisible, setIsVisible }) => {
     const animateref = useRef(null);
+    const menuDropRef = useRef(null);
+    const listItemRefs = useRef([]);
+
     useEffect(() => {
         if (hoveredItem) {
-            gsap.fromTo(
-                animateref.current,
-                { y: '-100%', opacity: 0 },
-                { y: '0%', opacity: 1, duration: 0.5, ease: 'power3.out' }
-            );
+            if (isVisible) {
+                gsap.fromTo(
+                    animateref.current,
+                    { y: '-20%', opacity: 0 },
+                    { y: '0%', opacity: 1, duration: 0.5, ease: 'power3.out', delay: 0.1 }
+                );
+                setIsVisible(false);
+            }
         } else {
-            gsap.to(animateref.current, { y: '-100%', opacity: 0, duration: 0.5, ease: 'power3.in' });
+            gsap.to(animateref.current, { y: '-100%', opacity: 0, duration: 0.8, ease: 'power3.in' });
         }
     }, [hoveredItem]);
+
+    useEffect(() => {
+        const handleMouseEnter = (e, index) => {
+            const menuDrop = menuDropRef.current;
+            const item = listItemRefs.current[index];
+
+            menuDrop.style.setProperty("--block-top", `${item.getBoundingClientRect().top}px`);
+            menuDrop.style.setProperty("--block-left", `${item.getBoundingClientRect().left}px`);
+            menuDrop.style.setProperty("--block-height", `${item.clientHeight}px`);
+            menuDrop.style.setProperty("--block-width", `${item.clientWidth}px`);
+            menuDrop.style.setProperty("opacity", "1");
+            menuDrop.style.setProperty("visibility", "visible");
+
+            gsap.to(menuDrop, {
+                duration: 0.5,
+                ease: 'power3.out',
+                left: item.getBoundingClientRect().left,
+                top: item.getBoundingClientRect().top,
+                width: item.clientWidth,
+                height: item.clientHeight,
+                backgroundColor: 'black',
+                color: 'white'
+            });
+        };
+
+        const handleMouseLeave = () => {
+            const menuDrop = menuDropRef.current;
+            gsap.to(menuDrop, {
+                duration: 0.5,
+                ease: 'power3.out',
+                opacity: 0,
+                visibility: 'hidden'
+            });
+        };
+
+        listItemRefs.current.forEach((item, index) => {
+            item.addEventListener('mouseenter', (e) => handleMouseEnter(e, index));
+            item.addEventListener('mouseleave', handleMouseLeave);
+        });
+
+        return () => {
+            listItemRefs.current.forEach((item) => {
+                item.removeEventListener('mouseenter', handleMouseEnter);
+                item.removeEventListener('mouseleave', handleMouseLeave);
+            });
+        };
+    }, []);
+
     const handleMouseEnternew = (linkName) => {
         setHeading(linkName);
     };
 
     const handleMouseEnter = (item) => {
         setHoveredItem(item);
+        setHeading(item);
     };
-
-    const handleMouseLeave = () => {
-        setHoveredItem(null);
-        setHeading(null);
-    };
-
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setIsVisible(true);
-        }, 500);
-        return () => clearTimeout(timeout);
-    }, []);
 
     return (
         <>
-            {links.map((link) => (
+            {links.map((link, index) => (
                 <div
                     key={link.name}
                     onMouseEnter={() => handleMouseEnter(link.name)}
@@ -51,19 +92,20 @@ const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
                 >
                     <div className="hidden md:flex">
                         <h6
-                            className={`z-30 flex  justify-center items-center md:pr-1 pr-2`}
+                            className={`z-30 flex justify-center items-center md:pr-1 pr-2`}
                             onMouseEnter={() => handleMouseEnternew(link.name)}
                             onClick={() => {
                                 heading !== link.name ? setHeading(link.name) : setHeading("");
                             }}
                         >
                             <p
-                                className={`flex item-center p-0 font-montserrat text-16 pl-2 pr-2 justify-center ${hoveredItem
+                                ref={el => listItemRefs.current[index] = el}
+                                className={`flex item-center p-0 font-montserrat text-16 pl-2 pr-2 justify-center link-name ${hoveredItem
                                     ? heading === link.name
                                         ? "bg-black text-white rounded-full"
                                         : "text-black"
                                     : "text-black"
-                                    } text-base z-30 rounded-full`}
+                                    } text-base rounded-full`}
                             >
                                 {link.name}
                             </p>
@@ -73,20 +115,39 @@ const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
                             <div
                                 ref={animateref}
                                 className={`fixed left-0 right-0 mx-auto shadow-lg max-w-screen-2xl rounded-b-xl h-auto z-10 top-14 flex justify-center items-center`}
-                                onMouseLeave={handleMouseLeave}
                             >
                                 <div
                                     id="borderline"
-                                    className="absolute bg-white top-0 left-0 w-full"
-                                ></div>
-
-                                {link.comp === "AboutUs" && <Layout />}
-                                {link.name === "Products" && <Banners />}
-                                {link.name === "Industries" && <Industries />}
+                                    className="absolute top-0 left-0 w-full"
+                                />
+                                {link.comp === "AboutUs" && (
+                                    <Layout
+                                        hoveredItem={hoveredItem}
+                                        setHoveredItem={setHoveredItem}
+                                        heading={heading}
+                                        setHeading={setHeading}
+                                        isVisible={isVisible}
+                                        setIsVisible={setIsVisible}
+                                    />
+                                )}
+                                {link.name === "Products" && <Banners
+                                    hoveredItem={hoveredItem}
+                                    setHoveredItem={setHoveredItem}
+                                    heading={heading}
+                                    setHeading={setHeading}
+                                    isVisible={isVisible}
+                                    setIsVisible={setIsVisible}
+                                />}
+                                {link.name === "Application" && <Layout hoveredItem={hoveredItem}
+                                    setHoveredItem={setHoveredItem}
+                                    heading={heading}
+                                    setHeading={setHeading}
+                                    isVisible={isVisible}
+                                    setIsVisible={setIsVisible} />}
                                 {link.submenu &&
                                     link.comp !== "AboutUs" &&
                                     link.name !== "Products" &&
-                                    link.name !== "Industries" && (
+                                    link.name !== "Application" && (
                                         <div className="bg-white shadow-lg w-full p-5 grid grid-cols-1 md:grid-cols-3 gap-10">
                                             {link.sublinks.map((mysublinks) => (
                                                 <div key={mysublinks.Head} className="text-center">
@@ -115,7 +176,6 @@ const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
                             </div>
                         )}
                     </div>
-                    {/* Mobile menus */}
                     {open && (
                         <div className="md:hidden w-full bg-inherit">
                             <div
@@ -133,11 +193,11 @@ const NavLinks = ({ hoveredItem, setHoveredItem, open }) => {
                                 <div className="pl-4 pb-2">
                                     {link.comp === "AboutUs" && <Services />}
                                     {link.name === "Products" && <Banners />}
-                                    {link.name === "Industries" && <Industries />}
+                                    {link.name === "Application" && <Application />}
                                     {link.submenu &&
                                         link.comp !== "AboutUs" &&
                                         link.name !== "Products" &&
-                                        link.name !== "Industries" && (
+                                        link.name !== "Application" && (
                                             <div>
                                                 {link.sublinks.map((mysublinks) => (
                                                     <div key={mysublinks.Head} className="text-center">

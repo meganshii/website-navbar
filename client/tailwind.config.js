@@ -12,7 +12,7 @@ export default {
       },
       spacing: {
         "golden-h": "210px",
-        "golden-w": `${460 / 1.618}px`,
+        "golden-w": `${450 / 1.618}px`,
       },
       screens: {
         "1000px": "1050px",

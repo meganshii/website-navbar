@@ -14,13 +14,14 @@ import {
   i8,
 } from '../../Assests';
 import BlobAnimation from '../Blobanimation';
+import { gsap } from 'gsap';
+import slideInAnimation from './SlideAnimation';
 
-const AboutLayOut = () => {
+const AboutLayOut = ({ hoveredItem, setHoveredItem, open, heading, setHeading, isVisible, setIsVisible }) => {
   const [hoveredCategory, setHoveredCategory] = useState('All Products');
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [activeCategory, setActiveCategory] = useState(null); // For tracking the active category based on the carousel slide
+  const [activeCategory, setActiveCategory] = useState(null);
   const containerRef = useRef(null);
-
   const images = {
     first,
     second,
@@ -33,7 +34,6 @@ const AboutLayOut = () => {
     i7,
     i8,
   };
-
   const filteredCars = cars
     .filter((car) => car.category.includes(hoveredCategory))
     .map((car) => ({
@@ -42,27 +42,68 @@ const AboutLayOut = () => {
     }));
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      (prevIndex + 1) % filteredCars.length
-    );
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % filteredCars.length);
     setActiveCategory(filteredCars[(currentIndex + 1) % filteredCars.length].category.split(',')[0]);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) =>
-      (prevIndex - 1 + filteredCars.length) % filteredCars.length
-    );
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + filteredCars.length) % filteredCars.length);
     setActiveCategory(filteredCars[(currentIndex - 1 + filteredCars.length) % filteredCars.length].category.split(',')[0]);
   };
 
+  const handleMouseLeave = (e) => {
+    const container = containerRef.current;
+    const rect = container.getBoundingClientRect();
+    if (e.clientY >= rect.bottom) {
+      setHoveredCategory('All Products');
+      setCurrentIndex(0);
+      setActiveCategory(null);
+      setHoveredItem(null);
+      setHeading(null);
+      setIsVisible(true);
+    }
+  };
+
+  useEffect(() => {
+    const containerElement = containerRef.current;
+    if (containerElement) {
+      slideInAnimation(containerElement); // Apply the animation
+      containerElement.addEventListener('mouseleave', handleMouseLeave);
+    }
+    return () => {
+      if (containerElement) {
+        containerElement.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
+
   useEffect(() => {
     setCurrentIndex(0);
-    setActiveCategory(null); // Reset the active category when the category changes
+    setActiveCategory(null);
   }, [hoveredCategory]);
 
+  useEffect(() => {
+    const cars = document.querySelectorAll('.car-container');
+
+    gsap.fromTo(
+      cars,
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        ease: 'power4.out',
+      }
+    );
+  }, [currentIndex, hoveredCategory]);
+
   return (
-    <div className="w-full md:h-[63vh] border-b-2 rounded-b-xl flex flex-col justify-center items-center font-medium">
-      <div className="w-full flex flex-col md:flex-row rounded-lg overflow-hidden">
+    <div
+      ref={containerRef}
+      className="w-full md:h-full border-b-2 rounded-b-xl flex flex-col justify-center items-center font-medium"
+    >
+      <div className="animation_container w-full flex flex-col md:flex-row rounded-lg overflow-hidden">
         <div className="flex h-full justify-center items-center w-full md:w-3/4 relative px-16">
           {filteredCars.length > 3 && (
             <button
@@ -72,9 +113,9 @@ const AboutLayOut = () => {
               <MdKeyboardArrowLeft />
             </button>
           )}
-          <div className="flex overflow-hidden w-full" ref={containerRef}>
+          <div className="flex overflow-hidden w-full">
             {filteredCars.slice(currentIndex, currentIndex + 3).map((car, index) => (
-              <div key={car.name} className="group mx-4 bg-transparent text-center p-2 w-1/3 relative">
+              <div key={car.name} className="car-container group mx-4 bg-transparent text-center p-2 w-1/3 relative">
                 {index === 1 && (
                   <div className="absolute inset-0 z-0">
                     <BlobAnimation />
@@ -126,7 +167,7 @@ const AboutLayOut = () => {
           ))}
         </div>
       </div>
-      <div className="flex justify-center w-full">
+      <div className="flex mb-4 justify-center w-full">
         <div className="flex justify-center items-center space-x-2" style={{ width: '75%', marginLeft: '-15rem' }}>
           {filteredCars.map((machine, index) => (
             <div

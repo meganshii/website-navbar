@@ -3,9 +3,11 @@ import { gsap } from 'gsap';
 import { IoIosArrowDown, IoIosArrowUp } from '../index';
 import { items, titlesWithImages } from '../../constants';
 import "../../App.css";
+import slideInAnimation from './SlideAnimation'; // Import the common animation function
 
-const Layout = () => {
+const Layout = ({ hoveredItem, setHoveredItem, open, heading, setHeading, isVisible, setIsVisible }) => {
     const carouselRef = useRef(null);
+    const containerRef = useRef(null);
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const scrollDown = () => {
@@ -28,13 +30,44 @@ const Layout = () => {
         }
     };
 
+    const handleMouseLeave = (e) => {
+        const container = containerRef.current;
+        const rect = container.getBoundingClientRect();
+        if (e.clientY >= rect.bottom) {
+            gsap.to(container, {
+                duration: 0.2,
+                opacity: 0,
+                onComplete: () => {
+                    setHoveredItem(null);
+                    setCurrentIndex(0);
+                    setHeading(null);
+                    setIsVisible(true);
+                    gsap.to(container, { opacity: 1 });
+                }
+            });
+        }
+    };
+
+    useEffect(() => {
+        const containerElement = containerRef.current;
+        if (containerElement) {
+            slideInAnimation(containerElement); // Apply the animation
+            containerElement.addEventListener('mouseleave', handleMouseLeave);
+        }
+        return () => {
+            if (containerElement) {
+                containerElement.removeEventListener('mouseleave', handleMouseLeave);
+            }
+        };
+    }, []);
+
     useEffect(() => {
         const carouselElement = carouselRef.current;
 
         gsap.fromTo(
             carouselElement.children,
             { y: '100%', scale: 0.5, opacity: 0 },
-            { y: '0%', scale: 1, opacity: 1, duration: 0.8, stagger: 0.2, ease: 'elastic.out(1, 0.5)' }
+            { y: '0%', scale: 1, opacity: 1, duration: 0.5, stagger: 0.05, ease: 'elastic.out(1, 0.5)' }
         );
 
         carouselElement.addEventListener('wheel', handleWheel);
@@ -45,8 +78,11 @@ const Layout = () => {
     }, [currentIndex]);
 
     return (
-        <div className="flex flex-col top-0 border-b-2  rounded-b-xl md:flex-row p-4 sm:p-6 md:p-8 lg:p-4 h-full md:h-full items-center justify-center">
-            <div className="grid max-w-7xl grid-cols-2 gap-4 md:grid-cols-4 flex-shrink">
+        <div
+            ref={containerRef}
+            className="flex flex-col top-0 border-b-2 rounded-b-xl md:flex-row p-4 sm:p-6 md:p-8 lg:p-4 h-full md:h-full items-center justify-center"
+        >
+            <div className="grid max-w-7xl grid-cols-2 gap-4 md:grid-cols-4 flex-shrink image-container">
                 {titlesWithImages.map((item, index) => (
                     <div key={index} className="flex p-2 flex-col items-center">
                         <img
@@ -59,17 +95,17 @@ const Layout = () => {
                 ))}
             </div>
             <div className="ml-2 w-2 h-72 md:ml-4 lg:ml-6 border-l border-gray-300"></div>
-            <div className="ml-2 md:ml-4 lg:ml-6 w-full md:w-1/4 min-h-full  flex flex-col justify-between">
+            <div className="ml-2 md:ml-4 lg:ml-6 w-full md:w-1/4 min-h-full flex flex-col justify-between">
                 <div className="">
                     <div ref={carouselRef}>
                         {items.slice(currentIndex, currentIndex + 2).map((item, index) => (
-                            <div key={index} className={`${item.color} w-full flex items-center rounded-3xl mb-4`}>
-                                <div className={`h-8 w-w-12 p-2 flex justify-center items-center text-2xl ${item.color}`}>
-                                    {<item.icon></item.icon>}
+                            <div key={index} className={`${item.color} flex items-center p-5 rounded-3xl mb-2`}>
+                                <div className="h-12 w-12 mr-3 flex justify-center items-center text-2xl">
+                                    <item.icon></item.icon>
                                 </div>
-                                <div className={`${item.color}`}>
-                                    <h3 className={`${item.color} font-montserrat font-semibold text-16 mb-2`}>{item.title}</h3>
-                                    <p className={`${item.color} font-montserrat text-14 line-clamp-3`}>{item.description}</p>
+                                <div>
+                                    <h3 className="text-md font-medium mb-0">{item.title}</h3>
+                                    <p className="text-xs line-clamp-3">{item.description}</p>
                                 </div>
                             </div>
                         ))}

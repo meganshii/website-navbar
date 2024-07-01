@@ -108,9 +108,9 @@ const ProfilePage = () => {
     );
 };
 
-const Navbar = () => {
+const Navbar = ({ hoveredItem, setHoveredItem, heading, setHeading, isVisible, setIsVisible }) => {
     const [open, setOpen] = useState(false);
-    const [hoveredItem, setHoveredItem] = useState(null);
+
     const [profileOpen, setProfileOpen] = useState(false);
     const [isContactFormVisible, setContactFormVisible] = useState(false);
 
@@ -125,7 +125,11 @@ const Navbar = () => {
     const toggleProfile = () => {
         setProfileOpen(!profileOpen);
     };
-
+    const handleMouseLeave = () => {
+        setHoveredItem(null);
+        setHeading(null);
+        setIsVisible(true);
+    };
     return (
         <motion.nav
             className={`fixed top-2 left-2 right-2 z-50 mx-auto max-w-screen-2xl  backdrop-blur-[4px] ${hoveredItem ? "rounded-t-lg bg-white" : "rounded-lg"
@@ -139,8 +143,9 @@ const Navbar = () => {
                     {open ? <FiX /> : <FiMenu />}
                 </span>
                 <Link
+                    onMouseEnter={handleMouseLeave}
                     to={"/"}
-                    className="w-1/4 z-30  hidden h-10 rounded-2xl md:flex md:pr-1 pr-2 justify-start items-center"
+                    className="w-1/4 z-30 hidden h-10 rounded-2xl md:flex md:pr-1 pr-2 justify-start items-center"
                 >
                     <img
                         className={`z-30 ${hoveredItem ? "h-8" : "h-8"} w-12`}
@@ -153,10 +158,11 @@ const Navbar = () => {
                     />
                 </Link>
                 <ul className="w-2/4 h-10 rounded-lg md:flex hidden justify-center flex-wrap items-center font-montserrat text-16 font-thin relative">
-                    <NavLinks hoveredItem={hoveredItem} setHoveredItem={setHoveredItem} />
+                    <NavLinks hoveredItem={hoveredItem} setHoveredItem={setHoveredItem} heading={heading} setHeading={setHeading} isVisible={isVisible} setIsVisible={setIsVisible} />
                 </ul>
                 <span
-                    className={`w-1/4 h-10 hidden md:flex justify-end items-center gap-2 ${hoveredItem ? "text-black" : "text-black"
+                    onMouseEnter={handleMouseLeave}
+                    className={`w-1/4 h-10 z-30 hidden md:flex justify-end items-center gap-2 ${hoveredItem ? "text-black" : "text-black"
                         }`}
                 >
                     <div className="flex items-center space-x-1">
@@ -237,8 +243,8 @@ const Navbar = () => {
                     </svg>
                     <MdOutlineAccountCircle className="font-montserrat text-2xl cursor-pointer" />
                     <span
-                        className={`cursor-pointer font-montserrat text-16 font-thin rounded-full p-0 pl-4 pr-4 ${hoveredItem ? "text-black bg-white" : "bg-black text-white"
-                            }`}
+                        className={`cursor-pointer font-montserrat text-16 font-thin rounded-full p-0 pl-4 pr-4
+                            text-white bg-black`}
                         onClick={toggleContactForm}
                     >
                         Contact
@@ -259,8 +265,7 @@ const Navbar = () => {
             >
                 <ul className="bg-white font-montserrat text-16 font-thin border-t-4 border-black h-screen text-center">
                     <NavLinks
-                        hoveredItem={hoveredItem}
-                        setHoveredItem={setHoveredItem}
+                        hoveredItem={hoveredItem} setHoveredItem={setHoveredItem} heading={heading} setHeading={setHeading} isVisible={isVisible} setIsVisible={setIsVisible}
                         open={open}
                         setOpen={setOpen}
                     />
