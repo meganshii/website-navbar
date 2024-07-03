@@ -14,14 +14,14 @@ const Application = ({ onHover }) => {
   const handleMouseLeave = () => {
     setHoveredIndex(null);
   };
- 
+
 
   return (
-    <div className="grid grid-cols-6 gap-5 p-3 -mt-2">
+    <div className="grid grid-cols-6 gap-5 p-3 rounded">
       {item.map((items, index) => (
         <div
           key={index}
-          className="relative w-30 h-24 rounded-md overflow-hidden"
+          className="relative w-24 bg-[#575555] h-24 rounded-lg "
           onMouseEnter={() => handleMouseEnter(index, items)}
           onMouseLeave={handleMouseLeave}
         >
@@ -29,17 +29,13 @@ const Application = ({ onHover }) => {
           <img
             src={items.src}
             alt={items.alt}
-            className={`object-cover w-full h-full transition-transform duration-300 ease-in-out hover:translate-y-[-20%] ${hoveredIndex === index ? "scale-105" : "scale-100"}`}
+            className={`object-cover min-w-full min-h-full transition-transform duration-300 ease-in-out rounded-b-md rounded-t-md ${hoveredIndex === index ? 'translate-y-[-20%]' : ''}`}
           />
-           <div
-            className={`absolute inset-0 flex items-center justify-center bg-slate-700 bg-opacity-0 transition-all duration-300 ease-in-out ${hoveredIndex === index ? "bg-gradient-to-t from-slate-700 " : "bg-transparent"}`}
-          >
           <p
             onMouseEnter={() => onHover(items)}
-            className={`text-white text-sm  text-center -mb-16 transition-opacity duration-300 ease-in-out  transform${hoveredIndex === index ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}`}>
+            className={`absolute bottom-0 w-full text-white text-sm text-center transition-opacity duration-300 ease-in-out ${hoveredIndex === index ? 'opacity-100' : 'opacity-0'}`}          >
             {items.name}
           </p>
-          </div>
         </div>
         
       ))}
@@ -53,7 +49,7 @@ const ApplicationPage = () => {
     name: "Paper Cups",
     description:
       "Paper cups are disposable containers made from paper and often lined with plastic or wax to prevent liquid leakage. They are widely used for beverages, particularly in the food and beverage industry.",
-  
+     
     });
 
   const handleHover = (items) => {
