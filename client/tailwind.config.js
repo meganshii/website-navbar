@@ -5,6 +5,8 @@ export default {
     extend: {
       fontFamily: {
         montserrat: ["Montserrat"],
+        translate: ['group-hover'],
+     
       },
       fontSize: {
         16: "16px",
@@ -21,6 +23,7 @@ export default {
         "1300px": "1300px",
         "400px": "400px",
       },
+     
     },
   },
   plugins: [],
