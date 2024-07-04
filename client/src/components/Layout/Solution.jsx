@@ -1,14 +1,44 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef,useEffect } from "react";
 import { Items } from "../../constants";
 import { SlArrowRight } from "react-icons/sl";
 import { SlArrowDown } from "react-icons/sl";
+import { SlArrowUp } from "react-icons/sl";
 
 const Solution = () => {
   const [selectedItem, setSelectedItem] = useState(Items[0]);
+ const listRef=useRef();
+ const itemRefs =useRef(); 
+
+ useEffect(() => {
+  itemRefs.current = new Array(Items.length);
+}, [Items]);
+
 
   const handleItemHover = (Items) => {
     setSelectedItem(Items);
   };
+
+  const scrollToItem = (index) => {
+    if (itemRefs.current[index]) {
+      itemRefs.current[index].scrollIntoView({ behavior: "smooth" });
+      setSelectedItem(Items[index]);
+    }
+  };
+
+  const handleScrollUp = () => {
+    const currentIndex = Items.findIndex((item) => item.id === selectedItem.id);
+    if (currentIndex > 0) {
+      scrollToItem(currentIndex - 1);
+    }
+  };
+
+  const handleScrollDown = () => {
+    const currentIndex = Items.findIndex((item) => item.id === selectedItem.id);
+    if (currentIndex < Items.length - 1) {
+      scrollToItem(currentIndex + 1);
+    }
+  };
+
 
   const displayedItems = Items;
 
@@ -49,25 +79,25 @@ const Solution = () => {
           </div>
           <div className="border-r border-gray-300"></div>
           <div className="w-2/6 p-4  ">
-            <div className="space-y-2 h-72 overflow-y-auto hide-scrollbar  bg-yellow-500">
-              {displayedItems.map((item) => (
+          <SlArrowUp className="ml-40  bounce-animation mt-1 cursor-pointer bg-red-400"  onClick={handleScrollUp} />
+            <div ref={listRef} className="space-y-2 h-72 overflow-y-auto hide-scrollbar bg-yellow-200 ">
+            
+              {displayedItems.map((item,index) => (
                 <p
-                  key={item.id}
-                  className={` p-2   hover:text-[#483d73] ${
-                    selectedItem.id === item.id
-                      ? "text-[#483d73] font-bold"
-                      : "text-black"
-                  } hover:text-[#483d73]`}
-                  onMouseEnter={() => handleItemHover(item)}
-                >
+                key={item.id}
+                ref={(el) => (itemRefs.current[index] = el)}
+                className={`p-2 hover:text-[#483d73] ${
+                  selectedItem.id === item.id
+                    ? "text-[#483d73] font-bold"
+                    : "text-black"
+                }`}
+                onMouseEnter={() => handleItemHover(item)}
+              >
                   {item.name}
                 </p>
               ))}
-              {Items.length > 7 && (
-                <div className="flex justify-center items-center mt-2 "></div>
-              )}
             </div>
-            <SlArrowDown className="ml-40  bounce-animation mt-1" />
+            <SlArrowDown className="ml-40  bounce-animation mt-1" onClick={handleScrollDown}/>
           </div>
         </div>
       </div>
