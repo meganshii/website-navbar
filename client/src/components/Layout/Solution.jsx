@@ -6,8 +6,9 @@ import { SlArrowUp } from "react-icons/sl";
 
 const Solution = () => {
   const [selectedItem, setSelectedItem] = useState(Items[0]);
+  const [hoveredItem, setHoveredItem] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
-    const listRef = useRef(null);
+  const listRef = useRef(null);
   const itemRefs = useRef([]);
 
   const handleScroll = () => {
@@ -17,6 +18,11 @@ const Solution = () => {
       setIsScrolled(false);
     }
   };
+  const handleItemHover = (item) => {
+    setHoveredItem(item.id);
+    setSelectedItem(item);
+  };
+  
 
   const handleScrollUp = () => {
     listRef.current.scrollTop -= 50; // Adjust scroll amount as needed
@@ -26,10 +32,14 @@ const Solution = () => {
     listRef.current.scrollTop += 50; // Adjust scroll amount as needed
   };
 
+  const handleItemLeave = () => {
+    setHoveredItem(null);
+  };
+
   useEffect(() => {
     const currentRef = listRef.current;
-    currentRef.addEventListener('scroll', handleScroll);
-    return () => currentRef.removeEventListener('scroll', handleScroll);
+    currentRef.addEventListener("scroll", handleScroll);
+    return () => currentRef.removeEventListener("scroll", handleScroll);
   }, []);
 
   const displayedItems = Items;
@@ -38,14 +48,12 @@ const Solution = () => {
     <div className="flex justify-center items-start  w-full ">
       <div className=" rounded-b-5xl shadow-lg h-4/5 w-full relative ">
         <div className="flex ">
-          <div className="  p-8 relative w-9/12 ">
-            <div className="relative ">
-              {" "}
-              {/* Added relative positioning */}
+          <div className="  p-8 relative w-9/12  ">
+            <div className="relative ml-10 ">
               <img
                 src={selectedItem.img}
                 alt={selectedItem.name}
-                className="absolute right-0 rounded-lg w-64 h-64 object-cover"
+                className="absolute -right-9 rounded-lg w-72 h-72 object-cover"
               />
             </div>
             <div className="relative z-10  w-4/5 ">
@@ -63,49 +71,46 @@ const Solution = () => {
             </div>
 
             <div className="button-container">
-  <button className="custom-button">
-    Know More
-    <SlArrowRight className="custom-icon" />
-  </button>
-</div>
-
-
-
+              <button className="custom-button">
+                Know More
+                <SlArrowRight className="custom-icon" />
+              </button>
+            </div>
           </div>
-          <div className="border-r border-gray-300"></div>
-          <div className="w-[30%] p-4  ">
-            
-          {isScrolled && (
-          <SlArrowUp
-            className="ml-[43%] font-extrabold cursor-pointer -mt-2"
-            onClick={handleScrollUp}
-          />
-        )}
-             
+          <div className="border-r border-gray-300 p-4 mb-7 mt-5"></div>
+          <div className="w-[24%] p-4 ">
+            <div className="relative">
+              <SlArrowUp
+                className={`arrow-up ${isScrolled ? "visible" : "invisible"}`}
+                onClick={handleScrollUp}
+              />
+            </div>
+
             <div
               ref={listRef}
-              className="space-y-3 h-72 overflow-y-auto hide-scrollbar mt-2"
+              className="space-y-3 h-72 overflow-y-auto hide-scrollbar -ml-2 mt-4"
             >
               {displayedItems.map((item, index) => (
                 <p
                   key={item.id}
                   ref={(el) => (itemRefs.current[index] = el)}
-                  className={`p-1 hover:text-[#483d73] ${
-                    selectedItem.id === item.id
+                  className={`p-2  ${
+                    selectedItem.id === item.id || hoveredItem ==item.id
                       ? "text-[#483d73] font-bold"
                       : "text-black"
-                  }`}
+                  }hover:text-[#483d73] hover:font-bold`}
                   onMouseEnter={() => handleItemHover(item)}
+                  onMouseLeave={handleItemLeave}
                 >
                   {item.name}
                 </p>
               ))}
             </div>
             <div className="mt-3">
-            <SlArrowDown
-              className="ml-36 font-bold "
-              onClick={handleScrollDown}
-            />
+              <SlArrowDown
+                className="ml-[45%] font-bold "
+                onClick={handleScrollDown}
+              />
             </div>
           </div>
         </div>

@@ -95,12 +95,12 @@ export const links = [
     sublinks: [],
   },
   {
-    name: "Mediaroom",
+    name: "Support",
     submenu: false,
     sublinks: [],
   },
   {
-    name: "Other",
+    name: "Databank",
     submenu: false,
     sublinks: [],
   },
@@ -289,7 +289,7 @@ export const SidebarLinks = [
       { src: img1, alt: "Cups", name: "Paper Bag", description: "Ppaer cups are disposable containers made from the paper and often lined with pplatic or wax to prevent liuquid leakage" ,bgpic:bgimg3},
       { src: img2, alt: "Item 2", name: "Paper Glass", description: "Ppaer cups are disposable containers made from the paper and often lined with pplatic or wax to prevent liuquid leakage.",bgpic:bgimg3},
       { src: img3, alt: "Item 3", name: "Paper Bag", description: "Ppaer cups are disposable containers made from the paper and often lined with pplatic or wax to prevent liuquid leakage",bgpic:bgimg3},
-      { src: img4, alt: "Item 4", name: "Paper Spoons", description: "Ppaer cups are disposable containers made from the paper and often lined with pplatic or wax to prevent liuquid leakage.theu are widely used for bevrages and food indeustry",bgpic:bgimg3 },
+      { src: img4, alt: "Item 4", name: "Paper Spoon", description: "Ppaer cups are disposable containers made from the paper and often lined with pplatic or wax to prevent liuquid leakage.theu are widely used for bevrages and food indeustry",bgpic:bgimg3 },
   
     ];
 
