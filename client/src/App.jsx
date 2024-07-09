@@ -3,6 +3,8 @@ import { useState } from 'react';
 import './App.css'
 import Navbar from './components/Navbar/Navbar'
 import { BrowserRouter } from 'react-router-dom'
+import AboutUs from './components/Aboutus/AboutUs';
+import TrustedPartners from './components/Trustedpartners/TrustedPartners';
 
 function App() {
   const [hoveredItem, setHoveredItem] = useState(null);
@@ -19,6 +21,7 @@ function App() {
     onMouseEnter={handleMouseLeave}
     >
       <Navbar hoveredItem={hoveredItem} setHoveredItem={setHoveredItem} heading={heading} setHeading={setHeading} isVisible={isVisible} setIsVisible={setIsVisible} />
+      <TrustedPartners/>
     </BrowserRouter>
   )
 }

@@ -57,10 +57,10 @@ const Solution = () => {
               />
             </div>
             <div className="relative z-10  w-4/5 ">
-              <h2 className="text-5xl font-bold text-[#483d73]">
+              <h2 className="text-6xl font-extrabold text-[#483d73]">
                 {selectedItem.name.split(" ")[0]}
               </h2>
-              <h2 className="text-5xl font-bold text-red-600 ">
+              <h2 className="text-6xl font-extrabold text-red-600 ">
                 {selectedItem.name.split(" ").slice(1).join(" ")}
               </h2>
               <div className="w-3/4">
@@ -77,11 +77,11 @@ const Solution = () => {
               </button>
             </div>
           </div>
-          <div className="border-r border-gray-300 p-4 mb-7 mt-5"></div>
+          <div className="border-r border-gray-400 p-4 mb-7 mt-5"></div>
           <div className="w-[24%] p-4 ">
             <div className="relative">
               <SlArrowUp
-                className={`arrow-up ${isScrolled ? "visible" : "invisible"}`}
+                className={`arrow-up h-4 w-3  ${isScrolled ? "visible" : "invisible"}`}
                 onClick={handleScrollUp}
               />
             </div>
@@ -94,7 +94,7 @@ const Solution = () => {
                 <p
                   key={item.id}
                   ref={(el) => (itemRefs.current[index] = el)}
-                  className={`p-2  ${
+                  className={`p-2 ${
                     selectedItem.id === item.id || hoveredItem ==item.id
                       ? "text-[#483d73] font-bold"
                       : "text-black"
@@ -108,7 +108,7 @@ const Solution = () => {
             </div>
             <div className="mt-3">
               <SlArrowDown
-                className="ml-[45%] font-bold "
+                className="ml-[45%]  text-[#483d73] h-4 w-3 "
                 onClick={handleScrollDown}
               />
             </div>

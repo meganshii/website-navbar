@@ -20,7 +20,7 @@ import {
   pinkCityImage,
 } from "../Assests";
 
-
+//application page
 import img1 from "../Assests/bg-2.jpg";
 import img2 from "../Assests/bg3.jpg";
 import img3 from "../Assests/bg4.jpg";
@@ -31,8 +31,20 @@ import bgimg1 from "../Assests/outlin.png";
 import bgimg2 from "../Assests/outlinebowl.jpg";
 import bgimg3 from "../Assests/outlinespoon.png";
 
+//solution page
 import image1 from "../Assests/banner.jpg";
 import image2 from "../Assests/banner1.jpg"
+
+//databank page
+import faqIcon1 from '../Assests/faqicon.png';  // Adjust the path to your image
+import productIcon2 from '../Assests/producticon.png';  // Adjust the path to your image
+import machineIcon3 from '../Assests/machineicon.png';  // Adjust the path to your image
+import businessIcon4 from '../Assests/ideaicon.png';  // Adjust the path to your image
+
+import { GiLightBulb } from "react-icons/gi";
+import { TbLogs } from "react-icons/tb";
+import { MdOutlineSettingsInputComposite } from "react-icons/md";
+import { AiOutlineApartment } from "react-icons/ai";
 
 
 export const items = [
@@ -352,4 +364,142 @@ export const Items = [
     },
   // Add more items as needed
 ];
+
+
+//databank 
+
+ export const Itemslist = [
+  {
+      id: 1,
+      name: 'Knowledge Centre',
+      images: [
+          { src: faqIcon1, alt: 'Client Icon' },
+          { src: productIcon2, alt: 'Business Icon' },
+          { src: machineIcon3, alt: 'Blogs Icon' },
+          { src: businessIcon4, alt: 'FAQ Icon' }
+      ],
+      icon :TbLogs
+  },
+
+{
+  id: 2,
+  name: 'Blogs',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon :TbLogs
+},
+{
+  id: 3,
+  name: 'Clientele',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:MdOutlineSettingsInputComposite
+},
+{
+  id: 4,
+  name: 'Business',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:AiOutlineApartment
+},
+{
+  id: 5,
+  name: 'Business',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:MdOutlineSettingsInputComposite 
+},
+{
+  id: 6,
+  name: 'Business',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:TbLogs
+},
+{
+  id: 7,
+  name: 'Business',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:TbLogs
+},
+{
+  id: 8,
+  name: 'Media Room',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:TbLogs
+},
+{
+  id: 9,
+  name: 'Media Room',
+  images: [
+      { src: faqIcon1, alt: 'Client Icon' },
+      { src: productIcon2, alt: 'Business Icon' },
+      { src: machineIcon3, alt: 'Blogs Icon' },
+      { src: businessIcon4, alt: 'FAQ Icon' }
+  ],
+  icon:TbLogs
+},
+
+];
+
+
+// src/data.js
+
+
+export const data = {
+  heading: "Leading the Way in Food Packaging Machine Manufacturing",
+  description: `At Nessco India, we specialize in manufacturing advanced food packaging machines that set industry standards for quality and innovation. Our state-of-the-art technology ensures efficient and sustainable solutions, meeting the diverse needs of our global clientele. With over 40 years of expertise, we are dedicated to pioneering eco-friendly practices in packaging. Trust us to lead the way in transforming packaging solutions for a greener future.`,
+  stats: {
+    machinesSold: "31000+",
+    readyStockMachines: "3000+",
+  },
+  cards: [
+    {
+      title: "Vision & Mission",
+      image: "src/Assests/strength.jpeg",
+      link: "#",
+    },
+    {
+      title: "Our Strength",
+      image: "src/Assests/machineimg.jpg",
+      link: "#",
+    },
+    {
+      title: "People & Culture",
+      image: "src/Assests/team.jpg",
+      link: "#",
+    },
+  ],
+};
+
 
