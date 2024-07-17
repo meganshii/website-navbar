@@ -1,89 +1,76 @@
 import React from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-// Sample data for icons
-const trustedByIcons = [
-  '\src\Assests\mcdonald.png',
-  '\src\Assests\wendys.jpeg',
-  '\src\Assests\starbucks.png',
-  
+const brandLogos = [
+  { src: '/src/Assests/mcdonald.png', alt: 'Brand 1' },
+  { src: '/src/Assests/starbucks.png', alt: 'Brand 2' },
+  {src : '/src/Assests/kfc.png'} ,
+  { src: '/src/Assests/mcdonald.png', alt: 'Brand 1' },
+  { src: '/src/Assests/starbucks.png', alt: 'Brand 2' },
+  {src : '/src/Assests/kfc.png'},
+  { src: '/src/Assests/mcdonald.png', alt: 'Brand 1' },
+  { src: '/src/Assests/starbucks.png', alt: 'Brand 2' },
+  {src : '/src/Assests/kfc.png'},
+  { src: '/src/Assests/mcdonald.png', alt: 'Brand 1' },
+  { src: '/src/Assests/starbucks.png', alt: 'Brand 2' },
+  {src : '/src/Assests/kfc.png'}
+  // Add all your brand logos here
 ];
 
-const partnerBrandsIcons = [
-  'src\Assests\siemens.jpeg',
-  'src\Assests\omron.png',
-  'src\Assests\smc.png',
-  // Add more paths to your icons
+const partnerLogos = [
+  { src: '/src/Assests/tessa.jpg'},
+  { src: '/src/Assests/smc.png' },
+  { src: '/src/Assests/siemens.jpeg' },
+  { src: '/src/Assests/omron.png'},
+  { src: '/src/Assests/innovance.jpg'},
+  { src: '/src/Assests/tessa.jpg' },
+  { src: '/src/Assests/smc.png' },
+  { src: '/src/Assests/siemens.jpeg'},
+  { src: '/src/Assests/omron.png' },
+  { src: '/src/Assests/innovance.jpg'},
+  { src: '/src/Assests/tessa.jpg' },
+  { src: '/src/Assests/smc.png'},
+  { src: '/src/Assests/siemens.jpeg' },
+  { src: '/src/Assestsomron.png' },
+  { src: '/src/Assests/innovance.jpg'},
+  // Add a/l your partner logos here
 ];
 
 const TrustedPartners = () => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 6,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2000,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 5,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
-
   return (
-    <div className="container mx-auto p-6 bg-gray-100">
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Trusted By</h2>
-        <Slider {...settings}>
-          {trustedByIcons.map((icon, index) => (
-            <div key={index} className="px-2">
-              <img src={icon} alt={`Trusted by ${index}`} className="mx-auto" />
-            </div>
-          ))}
-        </Slider>
+    <>
+    <div className="space-y-11 mt-32  ">
+      <div className="flex items-center space-x-10 ">
+        <h2 className="text-2xl font-montserrat ml-14 ">Trusted By</h2>
+        <div className="logo-container ">
+          <div className="logo-scroll  gap-3">
+            {brandLogos.concat(brandLogos).map((logo, index) => (
+              <img key={index} src={logo.src} alt={logo.alt} className="logo" />
+            ))}
+          </div>
+        </div>
       </div>
-
-      <div className="text-center mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Partner Brands</h2>
-        <Slider {...settings}>
-          {partnerBrandsIcons.map((icon, index) => (
-            <div key={index} className="px-2">
-              <img src={icon} alt={`Partner Brand ${index}`} className="mx-auto" />
-            </div>
-          ))}
-        </Slider>
-      </div>
-
-      <div className="text-center">
-        <p className="text-xl">
-          Empowering sustainable packaging with advanced paper-based solutions. Our innovative machines drive global CO2 reduction,
-          paving the way for a greener earth and elevating your packaging capabilities.
-        </p>
+      <div className="flex items-center space-x-5 ">
+        <h2 className="text-2xl font-montserrat ml-14 ">Partner Brands</h2>
+        <div className="logo-container2 ">
+          <div className="logo-scroll2 gap-3">
+            {partnerLogos.concat(partnerLogos).map((logo, index) => (
+              <img key={index} src={logo.src} alt={logo.alt} className="logo" />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
+    <div className="text-center my-32 ">
+        <p className="text-3xl w-[65%] ml-[20%] font-montserrat">
+          Empowering sustainable packaging with advanced paper-based solutions.
+          Our innovative machines drive global CO2 reduction, paving the way for
+          a greener earth and elevating your packaging capabilities.
+        </p>
+      </div>
+</>
+    
   );
 };
-
 export default TrustedPartners;

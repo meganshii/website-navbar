@@ -25,7 +25,7 @@ const AboutUs = ({ heading, description, stats, cards }) => {
             </h2>
             <p className="text-xl">Machines Sold</p>
           </div>
-          <p className="text-lg mx-4 w-[62%] leading-5">{description}</p>
+          <p className="text-lg mx-4 w-[62%] mt-10 leading-5">{description}</p>
           <div className="text-center">
             <h2 className="text-3xl font-bold text-[#483d73] -mt-3">
               {stats.readyStockMachines}
@@ -41,14 +41,14 @@ const AboutUs = ({ heading, description, stats, cards }) => {
         </a>
       </div>
 
-      <div className="flex flex-wrap justify-around w-full mt-10">
+      <div className="flex flex-wrap justify-around w-full mt-14">
         {cards.map((card, index) => (
           <div key={index} className="relative w-full md:w-[30%] p-2 group">
             <div className="relative overflow-hidden rounded-md transition-transform transform group-hover:scale-110">
               <img
                 src={card.image}
                 alt={card.title}
-                className="w-full h-36 object-cover"
+                className="w-full h-52 object-cover"
               />
               <div className="absolute bottom-0 left-0 p-2 flex items-center justify-between w-full">
                 <a href={card.link} className="text-white text-md">
